@@ -61,7 +61,7 @@ const Dashboard = () => {
       <h1 className="text-2xl font-bold">Dashboard</h1>
       {error && <p className="text-red-500">{error}</p>}
       <MovieSearch />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
         {/* Display search results */}
         {movies.map((movie) => (
           <div key={movie.imdbID} className="relative">

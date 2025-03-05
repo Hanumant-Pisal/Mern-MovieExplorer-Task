@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 
 const MovieCard = ({ movie, onAddFavorite, onRemoveFavorite, isFavorite }) => {
   return (
-    <div className="border p-4 rounded shadow">
-      <img src={movie.Poster} alt={movie.Title} className="w-full h-64 object-cover" />
+    <div className="bg-zinc-950 text-white p-4 rounded shadow">
+      <Link to={`/movie/${movie.imdbID}`}>
+      <img src={movie.Poster} alt={movie.Title} className="w-full h-64 object-cover border border-white" />
       <h2 className="text-xl font-bold mt-2">
-        <Link to={`/movie/${movie.imdbID}`}>{movie.Title}</Link>
+        {movie.Title}
       </h2>
       <p>{movie.Year}</p>
+      </Link>
       {onAddFavorite && (
         <button
           onClick={() => onAddFavorite(movie.imdbID)}

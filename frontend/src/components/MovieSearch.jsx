@@ -19,17 +19,17 @@ const MovieSearch = () => {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex items-center justify-center gap-2 mt-6">
       <input
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="p-2 border rounded"
+        className="p-2 border border-red-600  text-black bg-white rounded w-74"
         placeholder="Search for a movie..."
       />
       <button
         onClick={handleSearch}
-        className="p-2 bg-blue-500 text-white rounded"
+        className="p-2 bg-red-600 hover:bg-zinc-900 cursor-pointer w-34 text-white rounded"
       >
         Search
       </button>

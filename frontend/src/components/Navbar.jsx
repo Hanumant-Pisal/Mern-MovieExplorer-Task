@@ -21,7 +21,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-500 p-4 text-white">
+    <nav className="bg-zinc-900 p-4 text-white">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-xl font-bold">
           Movie Explorer
@@ -89,8 +89,8 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="/login">Login</Link>
-              <Link to="/register">Register</Link>
+              <Link to="/login" className=" border border-blue-600 px-4 py-1 w-18 rounded hover:bg-white hover:text-black transition-all duration-300">Login</Link>
+              <Link to="/register" className=" bg-blue-600 px-3 py-1 rounded hover:bg-white hover:text-black transition-all duration-300 ">Sign Up</Link>
             </>
           )}
         </div>

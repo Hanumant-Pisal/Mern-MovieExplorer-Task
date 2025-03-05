@@ -19,6 +19,7 @@ const addFavorite = async (req, res) => {
       await user.save();
   
       res.json(user.favorites);
+    
     } catch (err) {
       console.error("Error adding favorite:", err);
       res.status(500).json({ message: "Error adding favorite", error: err.message });
