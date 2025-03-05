@@ -7,11 +7,11 @@ import MovieSearch from "../components/MovieSearch";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { movies, favorites } = useSelector((state) => state.movies); // Get movies and favorites from Redux store
+  const { movies, favorites } = useSelector((state) => state.movies); 
   const [userId, setUserId] = useState("");
   const [error, setError] = useState("");
 
-  // Fetch user ID from localStorage
+ 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -20,12 +20,12 @@ const Dashboard = () => {
     }
   }, []);
 
-  // Fetch user's favorite movies
+  
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
         const favorites = await getFavorites(userId);
-        dispatch(setMovies(favorites)); // Update Redux store with favorites
+        dispatch(setMovies(favorites)); 
       } catch (err) {
         console.error("Error fetching favorites:", err);
       }
@@ -33,36 +33,37 @@ const Dashboard = () => {
     if (userId) fetchFavorites();
   }, [userId, dispatch]);
 
-  // Add a movie to favorites
+ 
   const handleAddFavorite = async (movieId) => {
     try {
       const response = await apiAddFavorite(userId, movieId);
-      dispatch(addFavorite(movieId)); // Dispatch addFavorite action
-      console.log("Favorite added:", response.data);
-      setError(""); // Clear any previous errors
+      dispatch(addFavorite(movieId)); 
+     alert("Movie Added to Favorite:", response.data);
+      setError(""); 
     } catch (err) {
       console.error("Error adding favorite:", err);
       setError(err.response?.data?.message || "Error adding favorite. Please try again.");
     }
   };
 
-  // Remove a movie from favorites
+
   const handleRemoveFavorite = async (movieId) => {
     try {
       await apiRemoveFavorite(userId, movieId);
       dispatch(removeFavorite(movieId));
+      alert("Movie remove from Favorite:");
     } catch (err) {
       console.error("Error removing favorite:", err);
     }
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Dashboard</h1>
+    <div className="p-4 ">
+     
       {error && <p className="text-red-500">{error}</p>}
       <MovieSearch />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-        {/* Display search results */}
+      
         {movies.map((movie) => (
           <div key={movie.imdbID} className="relative">
             <MovieCard movie={movie} />
@@ -74,7 +75,7 @@ const Dashboard = () => {
             </button>
           </div>
         ))}
-        {/* Display favorite movies */}
+       
         {favorites.map((movie) => (
           <div key={movie.imdbID} className="relative">
             <MovieCard movie={movie} />

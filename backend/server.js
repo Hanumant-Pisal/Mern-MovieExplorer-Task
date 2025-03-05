@@ -12,25 +12,25 @@ dotenv.config();
 
 const app = express();
 
-// Enable CORS for specific origins
+
 const corsOptions = {
-  origin: "http://localhost:5173", // Replace with your frontend URL
-  optionsSuccessStatus: 200, // Some legacy browsers choke on 204
+  origin: "http://localhost:5173", 
+  optionsSuccessStatus: 200, 
 };
 app.use(cors(corsOptions));
 
-// Parse JSON bodies
+
 app.use(express.json());
 
-// Connect to MongoDB
+
 connectDB();
 
-// Routes
+
 app.use("/api/auth", authRoutes);
 app.use("/api/movies", movieRoutes);
 app.use("/api/user", userRoutes);
 
-// Error handling middleware
+
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;

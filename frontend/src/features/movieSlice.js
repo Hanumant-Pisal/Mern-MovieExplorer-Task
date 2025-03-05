@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  movies: [], // For search results
-  favorites: [], // For user's favorite movies
+  movies: [], 
+  favorites: [], 
 };
 
 const movieSlice = createSlice({

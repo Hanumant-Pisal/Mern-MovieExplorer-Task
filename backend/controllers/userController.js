@@ -1,6 +1,6 @@
 const User = require("../models/User");
 
-// Add a movie to favorites
+
 const addFavorite = async (req, res) => {
     const { userId, movieId } = req.body;
     try {
@@ -9,12 +9,12 @@ const addFavorite = async (req, res) => {
         return res.status(404).json({ message: "User not found" });
       }
   
-      // Check if the movie is already in favorites
+      
       if (user.favorites.includes(movieId)) {
         return res.status(400).json({ message: "Movie already in favorites" });
       }
   
-      // Add the movie to favorites
+     
       user.favorites.push(movieId);
       await user.save();
   
@@ -26,7 +26,7 @@ const addFavorite = async (req, res) => {
     }
   };
 
-// Remove a movie from favorites
+
 const removeFavorite = async (req, res) => {
   const { userId, movieId } = req.body;
   try {
@@ -35,7 +35,7 @@ const removeFavorite = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Remove the movie from favorites
+    
     user.favorites = user.favorites.filter((id) => id.toString() !== movieId);
     await user.save();
 
@@ -46,7 +46,7 @@ const removeFavorite = async (req, res) => {
   }
 };
 
-// Get user's favorite movies
+
 const getFavorites = async (req, res) => {
   const { userId } = req.params;
   try {
@@ -61,4 +61,4 @@ const getFavorites = async (req, res) => {
   }
 };
 
-module.exports = { addFavorite, removeFavorite, getFavorites }; // Export getFavorites
+module.exports = { addFavorite, removeFavorite, getFavorites }; 

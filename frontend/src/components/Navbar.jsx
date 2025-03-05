@@ -7,8 +7,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const user = useSelector((state) => state.auth.user); // Get user details from Redux store
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown visibility
+  const user = useSelector((state) => state.auth.user); 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -29,13 +29,13 @@ const Navbar = () => {
         <div className="flex gap-4 items-center">
           {isAuthenticated ? (
             <>
-              {/* User Profile Dropdown */}
+            
               <div className="relative">
                 <button
                   onClick={toggleDropdown}
                   className="flex items-center focus:outline-none"
                 >
-                  {/* Profile Icon */}
+                 
                   <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
                     <svg
                       className="w-5 h-5 text-gray-600"
@@ -52,9 +52,9 @@ const Navbar = () => {
                       ></path>
                     </svg>
                   </div>
-                  {/* Username */}
+                
                   <span className="ml-2">{user?.username}</span>
-                  {/* Dropdown Arrow */}
+                 
                   <svg
                     className="w-4 h-4 ml-2"
                     fill="none"
@@ -70,7 +70,7 @@ const Navbar = () => {
                     ></path>
                   </svg>
                 </button>
-                {/* Dropdown Menu */}
+               
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-lg shadow-lg">
                     <div className="p-4 border-b">

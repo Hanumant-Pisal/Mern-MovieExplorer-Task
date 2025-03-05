@@ -1,4 +1,3 @@
-// src/pages/Register.jsx
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -7,18 +6,49 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [successMessage, setSuccessMessage] = useState(""); 
+  const [errorMessage, setErrorMessage] = useState(""); 
+  const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
 
+  
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+    return regex.test(email);
+  };
+
   const handleRegister = async () => {
+    
+    if (!validateEmail(email)) {
+      setErrorMessage("Invalid Details.");
+      return; 
+    }
+
+    setIsLoading(true); 
+    setErrorMessage(""); 
+    setSuccessMessage(""); 
+
     try {
       await axios.post("http://localhost:5000/api/auth/register", {
         username,
         email,
         password,
       });
-      navigate("/login");
+      setSuccessMessage("Registration successful! Redirecting to login..."); 
+      setTimeout(() => {
+        navigate("/login"); 
+      }, 2000); 
     } catch (err) {
+      if (err.response) {
+     
+        if (err.response.status === 400) {
+          setErrorMessage("Invalid input. Please check your details.");
+        } 
+        
+      } 
       console.error("Registration failed:", err);
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -50,10 +80,26 @@ const Register = () => {
           />
           <button
             onClick={handleRegister}
+            disabled={isLoading} 
             className="w-full p-3 bg-black text-white rounded-lg hover:bg-zinc-900 cursor-pointer transition-all duration-300"
           >
-            Sign Up
+            {isLoading ? "Signing Up..." : "Sign Up"} 
           </button>
+          {successMessage && ( 
+            <p className="text-center text-green-600 mt-4">{successMessage}</p>
+          )}
+          {errorMessage && ( 
+            <p className="text-center text-red-600 mt-4">{errorMessage}</p>
+          )}
+          <p className="text-center text-gray-600 mt-4">
+            Already have an account?{" "}
+            <span
+              onClick={() => navigate("/login")} 
+              className="text-blue-600 hover:underline cursor-pointer"
+            >
+              Login
+            </span>
+          </p>
         </div>
       </div>
     </div>

@@ -7,19 +7,30 @@ import { loginSuccess } from "../features/authSlice";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginSuccessMessage, setLoginSuccessMessage] = useState(""); 
+  const [errorMessage, setErrorMessage] = useState(""); 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
+    setErrorMessage(""); 
     try {
       const response = await axios.post("http://localhost:5000/api/auth/login", {
         username,
         password,
       });
       localStorage.setItem("token", response.data.token);
-      dispatch(loginSuccess({ username, email: response.data.email })); // Pass user details
-      navigate("/dashboard");
+      dispatch(loginSuccess({ username, email: response.data.email })); 
+      setLoginSuccessMessage("Login Successful!"); 
+      setTimeout(() => {
+        navigate("/dashboard"); 
+      }, 2000); 
     } catch (err) {
+      if (err.response && err.response.status === 401) {
+        setErrorMessage("Invalid credentials. Please try again."); 
+      } else {
+        setErrorMessage("An error occurred. Please try again later."); 
+      }
       console.error("Login failed:", err);
     }
   };
@@ -49,6 +60,21 @@ const Login = () => {
           >
             Login
           </button>
+          {loginSuccessMessage && ( 
+            <p className="text-center text-green-600 mt-4">{loginSuccessMessage}</p>
+          )}
+          {errorMessage && ( 
+            <p className="text-center text-red-600 mt-4">{errorMessage}</p>
+          )}
+          <p className="text-center text-gray-600 mt-4">
+            Don't have an account?{" "}
+            <span
+              onClick={() => navigate("/register")} 
+              className="text-blue-600 hover:underline cursor-pointer"
+            >
+              Sign Up
+            </span>
+          </p>
         </div>
       </div>
     </div>
